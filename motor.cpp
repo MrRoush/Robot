@@ -1,51 +1,91 @@
-#include <motor.h>
-#include <arduino.h>
+#include "motor.h"
+#include "arduino.h"
 
-#DEFINE LMtrFwd 10
-#DEFINE LMtrBwd 5
-#DEFINE RMtrFwd 8
-#DEFINE RMtrBwd 9
+volatile float CounterR = 0;
+volatile float LastCounterR = 0;
+volatile float CounterL = 0;
+volatile float LastCounterL = 0;
 
 
-/*
- * MotorR
- * This function is used to control the right motor
- * speed is the speed of the motor
- * speed > 0 is forward
- * speed < 0 is backward
- * speed = 0 is stop
-*/
-void MotorR(int speed){
-  if(speed > 0){
-	analogWrite(RMtrFwd, speed);
-	analogWrite(RMtrBwd, 0);
-  }else if(speed < 0){
-	analogWrite(RMtrFwd, 0);
-	analogWrite(RMtrBwd, speed);
-  }else{
-	analogWrite(RMtrFwd, 0);
-	analogWrite(RMtrBwd, 0);
-  }
+#define MAX_PWR 255
+
+int MotorInit() {
+	/**MotorR Pin Set**/
+	pinMode(RMTR_FWD, OUTPUT);
+	pinMode(RMTR_BWD, OUTPUT);
+	/**MotorL Pin Set**/
+	pinMode(LMTR_FWD, OUTPUT);
+	pintMode(LMTR_BWD, OUTPUT);
+
+	return 0;
 }
 
-/*
- * MotorL
- * This function is used to control the left motor
- * speed is the speed of the motor
- * speed > 0 is forward
- * speed < 0 is backward
- * speed = 0 is stop
-*/
-void MotorL(int speed){
-  if(speed > 0){
-	analogWrite(LMtrFwd, speed);
-	analogWrite(LMtrBwd, 0);
-  }else if(speed < 0){
-	analogWrite(LMtrFwd, 0);
-	analogWrite(LMtrBwd, speed);
-  }else{
-	analogWrite(LMtrFwd, 0);
-	analogWrite(LMtrBwd, 0);
-  }
+
+
+int MotorR(int pwr){
+	/**Catches if power values are greater than max value**/
+	if (pwr > MAX_PWR) {
+		pwr = MAX_PWR;
+	}
+	else if (pwr < -MAX_PWR) {
+		pwr = -MAX_PWR;
+	}
+
+
+	/**Sets the motor to the proper power and direction**/
+	if (pwr > 0) {
+		analogWrite(RMTR_FWD, pwr);
+		analogWrite(RMTR_BWD, 0);
+	}
+	else if (pwr < 0) {
+		analogWrite(RMTR_FWD, 0);
+		analogWrite(RMTR_BWD, -pwr);
+	}
+	else {
+		analogWrite(RMTR_FWD, 0);
+		analogWrite(RMTR_BWD, 0);
+	}
 }
 
+int MotorR(int pwr) {
+	/**Catches if power values are greater than max value**/
+	if (pwr > MAX_PWR) {
+		pwr = MAX_PWR;
+	}
+	else if (pwr < -MAX_PWR) {
+		pwr = -MAX_PWR;
+	}
+
+
+	/**Sets the motor to the proper power and direction**/
+	if (pwr > 0) {
+		analogWrite(LMTR_FWD, pwr);
+		analogWrite(LMTR_BWD, 0);
+	}
+	else if (pwr < 0) {
+		analogWrite(LMTR_FWD, 0);
+		analogWrite(LMTR_BWD, -pwr);
+	}
+	else {
+		analogWrite(LMTR_FWD, 0);
+		analogWrite(LMTR_BWD, 0);
+	}
+}
+
+
+int EncoderInit() {
+	/**Right Encoder Pin Setup
+	** Interrupt prevents encoder from continually counting up. **/
+	pinMode(RENC_FWD, INPUT);
+	pinMode(RENC_BWD, INPUT);
+	attachInterrupt(2, RtEncodeFWD, CHANGE);
+	attachInterrupt(3, RtEncodeBWD, CHANGE);
+
+	/**Right Encoder Pin Setup
+	** Interrupt prevents encoder from continually counting up. **/
+	pinMode(LENC_FWD, INPUT);
+	pinMode(LENC_BWD, INPUT);
+	attachInterrupt(0, LftEncodeFWD, CHANGE);
+	attachInterrupt(1, LftEncodeBWD, CHANGE);
+	return 0;
+}
