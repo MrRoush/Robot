@@ -1,4 +1,4 @@
-#incldue "Robot.h"
+#include "Robot.h"
 #include "motor.h"
 #include "arduino.h"
 
@@ -8,9 +8,9 @@ bool programRunning = false;
 int robotInit() {
 	pinMode(LED1, OUTPUT);
 	pinMode(LED2, OUTPUT);
-	pinMode(PINSW3, INPUT);
-	pinMode(PINSW2, INPUT);
-	pinMode(PINSW1, INPUT);
+	pinMode(SW3, INPUT);
+	pinMode(SW2, INPUT);
+	pinMode(SW1, INPUT);
 
 	MotorInit();
 	EncoderInit();

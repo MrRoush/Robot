@@ -15,7 +15,7 @@ int MotorInit() {
 	pinMode(RMTR_BWD, OUTPUT);
 	/**MotorL Pin Set**/
 	pinMode(LMTR_FWD, OUTPUT);
-	pintMode(LMTR_BWD, OUTPUT);
+	pinMode(LMTR_BWD, OUTPUT);
 
 	return 0;
 }
@@ -88,4 +88,56 @@ int EncoderInit() {
 	attachInterrupt(0, LftEncodeFWD, CHANGE);
 	attachInterrupt(1, LftEncodeBWD, CHANGE);
 	return 0;
+}
+
+void RtEncodeFWD() {
+	if (digitalRead(RENC_FWD) == HIGH) {
+		RtFWD_Set = true;
+		if (!RtBWD_Set) {
+			CounterR = CounterR + 1;
+		}
+	}
+
+	if (digitalRead(RENC_FWD) == LOW) {
+		RtFWD_Set = false;
+	}
+}
+
+void RtEncodeBWD() {
+	if (digitalRead(RENC_BWD) == HIGH) {
+		RtBWD_Set = true;
+		if (!RtFWD_Set) {
+			CounterR = CounterR - 1;
+		}
+	}
+
+	if (digitalRead(RENC_BWD) == LOW) {
+		RtBWD_Set = false;
+	}
+}
+
+void LftEncodeFWD() {
+	if (digitalRead(LENC_FWD) == HIGH) {
+		LftFWD_Set = true;
+		if (!LftBWD_Set) {
+			CounterL = CounterL + 1;
+		}
+	}
+
+	if (digitalRead(LENC_FWD) == LOW) {
+		LftFWD_Set = false;
+	}
+}
+
+void LftEncodeBWD() {
+	if (digitalRead(LENC_BWD) == HIGH) {
+		LftBWD_Set = true;
+		if (!LftFWD_Set) {
+			CounterL = CounterL - 1;
+		}
+	}
+
+	if (digitalRead(LENC_BWD) == LOW) {
+		LftBWD_Set = false;
+	}
 }

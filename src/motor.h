@@ -19,7 +19,10 @@ extern volatile float LastCounterR;
 extern volatile float CounterL;
 extern volatile float LastCounterL;
 
-
+bool RtFWD_Set = false;
+bool RtBWD_Set = false;
+bool LftFWD_Set = false;
+bool LftBWD_Set = false;
 
 /********************MotorInit*********************/
 /*************************************
