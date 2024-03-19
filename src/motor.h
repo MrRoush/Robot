@@ -1,8 +1,8 @@
 #ifndef __MOTOR_H	
 #define __MOTOR_H
 
-#define RMTR_BWD 5		//Right Motor Backward 
-#define RMTR_FWD 10		//Right Motor Forward
+#define RMTR_BWD 10		//Right Motor Backward 
+#define RMTR_FWD 5		//Right Motor Forward
 
 #define LMTR_BWD 9		//Left Motor Backward
 #define LMTR_FWD 8		//Left Motor Forward
