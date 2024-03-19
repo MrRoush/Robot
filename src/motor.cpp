@@ -6,6 +6,10 @@ volatile float LastCounterR = 0;
 volatile float CounterL = 0;
 volatile float LastCounterL = 0;
 
+bool RtFWD_Set = false;
+bool RtBWD_Set = false;
+bool LftFWD_Set = false;
+bool LftBWD_Set = false;
 
 #define MAX_PWR 255
 
