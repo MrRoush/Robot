@@ -18,8 +18,8 @@ int robotInit() {
 	static bool releaseFlag = true;
 
 	while (!programRunning) {
-		if (!digitalRead(START_PIN)) {
-			releasedFlag = false;
+		if (!digitalRead(SW3)) {
+			releaseFlag = false;
 			delay(20);
 		}
 

@@ -45,9 +45,11 @@ int MotorR(int pwr){
 		analogWrite(RMTR_FWD, 0);
 		analogWrite(RMTR_BWD, 0);
 	}
+
+	return 0;
 }
 
-int MotorR(int pwr) {
+int MotorL(int pwr) {
 	/**Catches if power values are greater than max value**/
 	if (pwr > MAX_PWR) {
 		pwr = MAX_PWR;
@@ -70,23 +72,7 @@ int MotorR(int pwr) {
 		analogWrite(LMTR_FWD, 0);
 		analogWrite(LMTR_BWD, 0);
 	}
-}
 
-
-int EncoderInit() {
-	/**Right Encoder Pin Setup
-	** Interrupt prevents encoder from continually counting up. **/
-	pinMode(RENC_FWD, INPUT);
-	pinMode(RENC_BWD, INPUT);
-	attachInterrupt(2, RtEncodeFWD, CHANGE);
-	attachInterrupt(3, RtEncodeBWD, CHANGE);
-
-	/**Right Encoder Pin Setup
-	** Interrupt prevents encoder from continually counting up. **/
-	pinMode(LENC_FWD, INPUT);
-	pinMode(LENC_BWD, INPUT);
-	attachInterrupt(0, LftEncodeFWD, CHANGE);
-	attachInterrupt(1, LftEncodeBWD, CHANGE);
 	return 0;
 }
 
@@ -140,4 +126,21 @@ void LftEncodeBWD() {
 	if (digitalRead(LENC_BWD) == LOW) {
 		LftBWD_Set = false;
 	}
+}
+
+int EncoderInit() {
+	/**Right Encoder Pin Setup
+	** Interrupt prevents encoder from continually counting up. **/
+	pinMode(RENC_FWD, INPUT);
+	pinMode(RENC_BWD, INPUT);
+	attachInterrupt(2, RtEncodeFWD, CHANGE);
+	attachInterrupt(3, RtEncodeBWD, CHANGE);
+
+	/**Right Encoder Pin Setup
+	** Interrupt prevents encoder from continually counting up. **/
+	pinMode(LENC_FWD, INPUT);
+	pinMode(LENC_BWD, INPUT);
+	attachInterrupt(0, LftEncodeFWD, CHANGE);
+	attachInterrupt(1, LftEncodeBWD, CHANGE);
+	return 0;
 }
