@@ -15,6 +15,12 @@
 
 extern int SonarTime;
 
+enum sonarPorts{
+	SONAR1,
+	SONAR2,
+	SONAR3
+};
+
 /********************SonarInit*********************/
 /*************************************
 ** Function Name: SonarInit
