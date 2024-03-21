@@ -1,6 +1,7 @@
 #include "Robot.h"
 #include "motor.h"
 #include "arduino.h"
+#include "Sonar.h"
 
 bool programRunning = false;
 
@@ -13,6 +14,11 @@ int robotInit() {
 	pinMode(SW1, INPUT);
 
 	MotorInit();
+
+	SonarInit(SONAR1);
+	SonarInit(SONAR2);
+	SonarInit(SONAR3);
+
 	EncoderInit();
 
 	static bool releaseFlag = true;
@@ -82,3 +88,12 @@ int stop() {
 		MotorL(0);
 	}
 }
+
+float getDist(int port) {
+	return SonarDist(port);
+}
+
+bool detectBarrier(int port, int dist) {
+	return SonarDist(port) < dist;
+}
+
