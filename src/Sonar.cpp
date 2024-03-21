@@ -34,7 +34,7 @@ float SonarDist(int port) {
 		delayMicroseconds(10);
 		digitalWrite(TRIG1, LOW);
 
-		distance = pulseIN(ECHO1, HIGH, SonarTime);
+		distance = pulseIn(ECHO1, HIGH, SonarTime);
 
 		if (distance == 0) {
 			distance = SonarTime;
