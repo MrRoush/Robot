@@ -2,7 +2,7 @@
 #define __SONAR_H
 
 #define ECHO1 56
-#define TRIG1 48
+#define TRIG1 46
 
 #define ECHO2 58
 #define TRIG2 6
@@ -20,6 +20,7 @@ enum sonarPorts{
 	SONAR2,
 	SONAR3
 };
+
 
 /********************SonarInit*********************/
 /*************************************
